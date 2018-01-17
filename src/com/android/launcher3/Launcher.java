@@ -932,6 +932,9 @@ public class Launcher extends BaseActivity
     @Override
     protected void onStop() {
         super.onStop();
+
+        getWorkspace().switchTouchListeners(false);
+
         FirstFrameAnimatorHelper.setIsVisible(false);
 
         if (mLauncherCallbacks != null) {
@@ -1095,6 +1098,9 @@ public class Launcher extends BaseActivity
             mLauncherCallbacks.onResume();
         }
 
+        if (!isWorkspaceLoading()) {
+            getWorkspace().switchTouchListeners(true);
+        }
     }
 
     @Override
@@ -1106,6 +1112,8 @@ public class Launcher extends BaseActivity
         mPaused = true;
         mDragController.cancelDrag();
         mDragController.resetLastGestureUpTime();
+
+        getWorkspace().switchTouchListeners(false);
 
         // We call onHide() aggressively. The custom content callbacks should be able to
         // debounce excess onHide calls.
@@ -1868,6 +1876,7 @@ public class Launcher extends BaseActivity
         super.onDestroy();
 
         unregisterReceiver(mReceiver);
+        getWorkspace().switchTouchListeners(false);
         mWorkspace.removeCallbacks(mBuildLayersRunnable);
         mWorkspace.removeFolderListeners();
 
