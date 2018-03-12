@@ -365,6 +365,21 @@ public class Launcher extends BaseActivity
         }
     }
 
+    private int mNightMode = 0;
+    private NightModeObserver mSettingsNightModeObserver;
+
+    private class NightModeObserver extends CustomSettingsObserver.Secure {
+        public NightModeObserver(ContentResolver resolver) {
+            super(resolver);
+        }
+
+        @Override
+        public void onSettingChanged(int keySettingInt) {
+            mNightMode = keySettingInt;
+            onThemeChanged();
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         if (DEBUG_STRICT_MODE) {
@@ -395,7 +410,10 @@ public class Launcher extends BaseActivity
         mSettingsObserver = new SystemThemeObserver(this.getContentResolver());
         mSettingsObserver.register("theme_global_style");
         mSystemTheme = mSettingsObserver.getSettingInt();
-        boolean forceDark = mSystemTheme == 3;
+        mSettingsNightModeObserver = new NightModeObserver(this.getContentResolver());
+        mSettingsNightModeObserver.register("night_display_activated");
+        mNightMode = mSettingsNightModeObserver.getSettingInt();
+        boolean forceDark = mSystemTheme == 3 || (mSystemTheme == 1 && mNightMode == 1);
         boolean forceLight = mSystemTheme == 2;
         overrideTheme(wallpaperColorInfo.isDark(), wallpaperColorInfo.supportsDarkText(), forceDark, forceLight);
 

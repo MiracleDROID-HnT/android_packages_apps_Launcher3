@@ -66,4 +66,40 @@ public interface CustomSettingsObserver {
             return Settings.System.getInt(mResolver, mKeySetting, 0);
         }
     }
+
+    abstract class Secure extends ContentObserver implements CustomSettingsObserver {
+        private ContentResolver mResolver;
+        private String mKeySetting;
+
+        public Secure(ContentResolver resolver) {
+            super(new Handler());
+            mResolver = resolver;
+        }
+
+        @Override
+        public void register(String keySetting, String ... dependentSettings) {
+            mKeySetting = keySetting;
+            mResolver.registerContentObserver(
+                    Settings.Secure.getUriFor(mKeySetting), false, this);
+            for (String setting : dependentSettings) {
+                mResolver.registerContentObserver(
+                        Settings.Secure.getUriFor(setting), false, this);
+            }
+        }
+
+        @Override
+        public void unregister() {
+            mResolver.unregisterContentObserver(this);
+        }
+
+        @Override
+        public void onChange(boolean selfChange) {
+            super.onChange(selfChange);
+            onSettingChanged(Settings.Secure.getInt(mResolver, mKeySetting, 0));
+        }
+
+        public int getSettingInt() {
+            return Settings.Secure.getInt(mResolver, mKeySetting, 0);
+        }
+    }
 }
