@@ -146,4 +146,53 @@
     <string name="title_disable_suggestions_prompt">Вимкнути пропозиції додатків?</string>
     <string name="msg_disable_suggestions_prompt">Пропозиції не відображатимуться вгорі списку додатків. Дані, які використовувалися для створення пропозицій, буде стерто назавжди.</string>
     <string name="label_turn_off_suggestions">ВИМКНУТИ</string>
+
+    <!-- Preference categories -->
+    <string name="home_category_title">Робочий стіл</string>
+    <string name="app_drawer_category_title">Меню додатків</string>
+    <string name="icon_category_title">Значки додатків</string>
+    <string name="widget_category_title">Віджети</string>
+
+    <!-- About -->
+    <string name="about_credits">Подяки</string>
+    <string name="about_amirzaidi_title">Pixel Launcher 3 mod</string>
+    <string name="about_amirzaidi_summary">Функції Pixel Launcher в Launcher3 від Amir Zaidi, доповнення від ABC.</string>
+
+    <!-- Hidden app -->
+    <string name="hide_app">Приховати додатки</string>
+    <string name="hide_app_sum">Приховати додатки з меню додатків</string>
+    <string name="hide_app_selected">&#160;вибрано</string>
+    <string name="hidden_app">Всі додатки</string>
+    <string name="hide_selected">Приховати вибрані додатки</string>
+    <string name="more">Більше</string>
+
+    <string name="reset_hidden_apps">Скидання</string>
+    <string name="reset_hidden_apps_done">Приховані додатки тепер доступні</string>
+
+    <string name="show_swipeup_arrow">Індикатор відкриття меню додатків</string>
+    <string name="show_swipeup_arrow_summary">Відображати індикатор у вигляді стрілки на робочому столі</string>
+
+    <string name="pref_show_clock_weather">Погода і дата на робочому столі</string>
+    <string name="pref_show_clock_weather_both">Відображати і погоду і дату</string>
+    <string name="pref_show_clock_weather_nothing">Не відображати</string>
+    <string name="pref_show_clock_weather_clock_only">Відображати тільки дату</string>
+    <string name="pref_show_clock_weather_weather_only">Відображати тільки погоду</string>
+
+    <!-- Hide/Show search bars -->
+    <string name="bottom_search_bar_title">Нижня панель пошуку</string>
+    <string name="bottom_search_bar_summary">Відображати панель пошуку в док-барі</string>
+    <string name="top_search_bar_title">Верхня панель пошуку</string>
+    <string name="top_search_bar_summary">Відображати панель пошуку в верхній частині меню додатків</string>
+
+    <string name="num_default">За замовчуванням</string>
+    <string name="num_three">Три</string>
+    <string name="num_four">Чотири</string>
+    <string name="num_five">П\'ять</string>
+    <string name="num_six">Шість</string>
+    <string name="num_seven">Сім</string>
+
+    <string name="grid_category_title">Стовпці і ряди</string>
+    <string name="number_of_columns_title">Кількість стовпців</string>
+    <string name="number_of_rows_title">Кількість рядів</string>
+    <string name="number_of_hotseat_title">Кількість значків в док-барі</string>
 </resources>
