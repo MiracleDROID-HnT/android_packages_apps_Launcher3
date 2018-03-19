@@ -414,8 +414,14 @@ public class Launcher extends BaseActivity
         mSettingsNightModeObserver.register("night_display_activated");
         mNightMode = mSettingsNightModeObserver.getSettingInt();
         boolean forceDark = mSystemTheme == 3 || (mSystemTheme == 1 && mNightMode == 1);
-        boolean forceLight = mSystemTheme == 2;
-        overrideTheme(wallpaperColorInfo.isDark(), wallpaperColorInfo.supportsDarkText(), forceDark, forceLight);
+        boolean forceLight = mSystemTheme == 2 || (mSystemTheme == 1 && mNightMode == 0);
+        if (forceLight) {
+            overrideTheme(false, wallpaperColorInfo.supportsDarkText(), forceDark, forceLight);
+        } else if (forceDark) {
+            overrideTheme(true, wallpaperColorInfo.supportsDarkText(), forceDark, forceLight);
+        } else {
+            overrideTheme(wallpaperColorInfo.isDark(), wallpaperColorInfo.supportsDarkText(), forceDark, forceLight);
+        }
 
         super.onCreate(savedInstanceState);
 

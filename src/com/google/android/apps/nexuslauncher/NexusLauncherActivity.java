@@ -32,7 +32,13 @@ public class NexusLauncherActivity extends Launcher {
             setTheme(R.style.GoogleSearchLauncherTheme);
         // if !useGoogleInOrientation fallback to Launcher.overrideTheme
         } else {
-            super.overrideTheme(isDark, supportsDarkText, forceDark, forceLight);
+            if (forceLight) {
+                super.overrideTheme(false, supportsDarkText, forceDark, forceLight);
+            } else if (forceDark) {
+                super.overrideTheme(true, supportsDarkText, forceDark, forceLight);
+            } else {
+                super.overrideTheme(isDark, supportsDarkText, forceDark, forceLight);
+            }
         }
     }
 
