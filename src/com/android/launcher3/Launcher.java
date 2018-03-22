@@ -415,12 +415,15 @@ public class Launcher extends BaseActivity
         mNightMode = mSettingsNightModeObserver.getSettingInt();
         boolean forceDark = mSystemTheme == 3 || (mSystemTheme == 1 && mNightMode == 1);
         boolean forceLight = mSystemTheme == 2 || (mSystemTheme == 1 && mNightMode == 0);
+        boolean forceBlack = mSystemTheme == 4;
         if (forceLight) {
-            overrideTheme(false, wallpaperColorInfo.supportsDarkText(), forceDark, forceLight);
+            overrideTheme(false, wallpaperColorInfo.supportsDarkText(), forceDark, forceLight, forceBlack);
         } else if (forceDark) {
-            overrideTheme(true, wallpaperColorInfo.supportsDarkText(), forceDark, forceLight);
+            overrideTheme(true, wallpaperColorInfo.supportsDarkText(), forceDark, forceLight, forceBlack);
+        } else if (forceBlack) {
+            overrideTheme(true, wallpaperColorInfo.supportsDarkText(), forceDark, forceLight, forceBlack);
         } else {
-            overrideTheme(wallpaperColorInfo.isDark(), wallpaperColorInfo.supportsDarkText(), forceDark, forceLight);
+            overrideTheme(wallpaperColorInfo.isDark(), wallpaperColorInfo.supportsDarkText(), forceDark, forceLight, forceBlack);
         }
 
         super.onCreate(savedInstanceState);
@@ -541,11 +544,13 @@ public class Launcher extends BaseActivity
         recreate();
     }
 
-    protected void overrideTheme(boolean isDark, boolean supportsDarkText, boolean forceDark, boolean forceLight) {
+    protected void overrideTheme(boolean isDark, boolean supportsDarkText, boolean forceDark, boolean forceLight, boolean forceBlack) {
         if (isDark || forceDark) {
             setTheme(R.style.LauncherThemeDark);
         } else if (supportsDarkText) {
             setTheme(R.style.LauncherThemeDarkText);
+        } else if (forceBlack) {
+            setTheme(R.style.LauncherThemeBlack);
         }
     }
 

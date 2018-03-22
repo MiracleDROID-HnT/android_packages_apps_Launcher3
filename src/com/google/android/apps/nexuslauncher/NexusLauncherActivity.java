@@ -18,13 +18,15 @@ public class NexusLauncherActivity extends Launcher {
         mLauncher = new NexusLauncher(this);
     }
 
-    public void overrideTheme(boolean isDark, boolean supportsDarkText, boolean forceDark, boolean forceLight) {
+    public void overrideTheme(boolean isDark, boolean supportsDarkText, boolean forceDark, boolean forceLight, boolean forceBlack) {
         int flags = Utilities.getDevicePrefs(this).getInt("pref_persistent_flags", 0);
         int orientFlag = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE ? 16 : 8;
         boolean useGoogleInOrientation = (orientFlag & flags) != 0;
 
         if (forceDark || (useGoogleInOrientation && isDark && !forceLight)) {
             setTheme(R.style.GoogleSearchLauncherThemeDark);
+        } else if (forceBlack) {
+            setTheme(R.style.GoogleSearchLauncherThemeBlack);
         // else if forcelight or wallpaper based use light theme or light theme plus dark text if needed by the wallpaper
         } else if (useGoogleInOrientation && supportsDarkText && Utilities.ATLEAST_NOUGAT) {
             setTheme(R.style.GoogleSearchLauncherThemeDarkText);
@@ -33,11 +35,13 @@ public class NexusLauncherActivity extends Launcher {
         // if !useGoogleInOrientation fallback to Launcher.overrideTheme
         } else {
             if (forceLight) {
-                super.overrideTheme(false, supportsDarkText, forceDark, forceLight);
+                super.overrideTheme(false, supportsDarkText, forceDark, forceLight, forceBlack);
             } else if (forceDark) {
-                super.overrideTheme(true, supportsDarkText, forceDark, forceLight);
+                super.overrideTheme(true, supportsDarkText, forceDark, forceLight, forceBlack);
+            } else if (forceBlack) {
+                super.overrideTheme(true, supportsDarkText, forceDark, forceLight, forceBlack);
             } else {
-                super.overrideTheme(isDark, supportsDarkText, forceDark, forceLight);
+                super.overrideTheme(isDark, supportsDarkText, forceDark, forceLight, forceBlack);
             }
         }
     }
